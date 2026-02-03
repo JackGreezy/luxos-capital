@@ -157,15 +157,15 @@ export default function HomePage() {
               </div>
             </div>
             
-            <div className="relative">
-              <div className="bg-white p-2 shadow-2xl transform translate-x-8 translate-y-8">
+            <div className="relative flex justify-center">
+              <div className="bg-white p-2 shadow-2xl transform lg:translate-x-8 lg:translate-y-8 w-full max-w-lg mx-auto">
                 <img 
                   src="/multifamily-apartment.webp" 
                   alt="Multifamily Apartment Complex" 
                   className="w-full h-auto"
                 />
               </div>
-              <div className="absolute -bottom-4 -left-4 w-full h-full bg-gray-700 -z-10" />
+              <div className="absolute -bottom-4 -left-4 w-full h-full bg-gray-700 -z-10 hidden lg:block" />
             </div>
           </div>
         </div>
@@ -460,12 +460,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Testimonials Header */}
-      <section className="bg-dark-darker py-12">
-        <div className="max-w-7xl mx-auto px-6 text-center">
-          <h2 className="text-white text-3xl font-bold">Testimonials</h2>
-        </div>
-      </section>
     </>
   );
 }
