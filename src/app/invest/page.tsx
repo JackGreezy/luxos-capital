@@ -96,11 +96,11 @@ export default function InvestPage() {
                     alt={dealItem.name}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
                   
                   {/* Status Badge */}
-                  <div className="absolute top-6 left-6">
-                    <span className={`px-4 py-2 text-xs uppercase tracking-[0.15em] font-medium ${
+                  <div className="absolute top-4 left-4 sm:top-6 sm:left-6 z-30">
+                    <span className={`px-3 py-1.5 sm:px-4 sm:py-2 text-[10px] sm:text-xs uppercase tracking-[0.15em] font-medium rounded-sm ${
                       dealItem.status === 'Investment Open' 
                         ? 'bg-green-600 text-white' 
                         : 'bg-[#c9a961] text-white'
@@ -109,16 +109,19 @@ export default function InvestPage() {
                     </span>
                   </div>
                   
-                  {/* Deal Info */}
-                  <div className="absolute bottom-0 left-0 right-0 p-6">
-                    <h3 className="text-2xl font-light text-white mb-4">{dealItem.name}</h3>
-                    <div className="grid grid-cols-3 gap-4">
-                      {dealItem.details.slice(0, 3).map((detail, detailIndex) => (
-                        <div key={detailIndex}>
-                          <div className="text-white/50 text-xs uppercase tracking-wider mb-1">{detail.label}</div>
-                          <div className="text-white font-medium">{detail.value}</div>
-                        </div>
-                      ))}
+                  {/* Deal Info - positioned to avoid badge overlap */}
+                  <div className="absolute bottom-0 left-0 right-0 z-10">
+                    {/* Background overlay for text readability */}
+                    <div className="bg-gradient-to-t from-black/95 via-black/80 to-transparent pt-16 pb-4 sm:pb-6 px-4 sm:px-6">
+                      <h3 className="text-lg sm:text-xl lg:text-2xl font-light text-white mb-3 sm:mb-4 leading-tight pr-20 sm:pr-0">{dealItem.name}</h3>
+                      <div className="grid grid-cols-3 gap-2 sm:gap-4">
+                        {dealItem.details.slice(0, 3).map((detail, detailIndex) => (
+                          <div key={detailIndex}>
+                            <div className="text-white/60 sm:text-white/50 text-[10px] sm:text-xs uppercase tracking-wider mb-1">{detail.label}</div>
+                            <div className="text-white text-sm sm:text-base font-medium leading-tight">{detail.value}</div>
+                          </div>
+                        ))}
+                      </div>
                     </div>
                   </div>
                 </div>

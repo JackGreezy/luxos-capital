@@ -92,7 +92,7 @@ export default function StrategyPage() {
                   to create substantial value for our investors.
                 </p>
                 <p>
-                  Led by CEO Terry LeClair, COO Kelly Baker, and Partner Josh Miller, our team brings decades 
+                  Led by CEO Terry LeClair, COO Kelly Baker, and CFO Josh Miller, our team brings decades 
                   of combined experience in real estate development, property management, and financial strategy.
                 </p>
               </div>

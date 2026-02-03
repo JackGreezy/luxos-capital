@@ -72,7 +72,7 @@ export default function WhyMultifamilyPage() {
               Real Estate
             </h1>
             <p className="text-xl text-white/70 leading-relaxed mb-10 max-w-lg">
-              Discover why institutional investors and sophisticated individuals choose apartments as their cornerstone wealth-building asset.
+              Discover why institutional investors and sophisticated individuals choose multi-residential real estate as their cornerstone wealth-building asset.
             </p>
             <Link 
               href="/invest" 

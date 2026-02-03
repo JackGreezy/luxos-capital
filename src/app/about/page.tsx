@@ -208,7 +208,7 @@ export default function AboutPage() {
                   <div className="w-px h-12 bg-[#c9a961] flex-shrink-0 mt-1" />
                   <div>
                     <h4 className="text-white font-medium mb-1">Full Transparency</h4>
-                    <p className="text-white/50 text-sm">Real-time updates and complete visibility into every investment.</p>
+                    <p className="text-white/50 text-sm">Real-time updates and complete visibility into every investment. Investors can leverage our online & mobile investor portal for live updates and transparency.</p>
                   </div>
                 </div>
               </div>

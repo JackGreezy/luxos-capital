@@ -8,7 +8,7 @@ export const teamMembers = [
   },
   {
     name: 'Josh Miller',
-    title: 'Partner',
+    title: 'CFO',
     bio: 'As a seasoned financial strategist and accounting leader with over 15 years of hands-on experience, I bring a proven track record of driving growth and operational excellence to Luxos Capital. My passion for transforming complex financial landscapes into opportunities for sustainable success has fueled my career across diverse industries, with a particular focus on real estate development, where I\'ve managed full cycle accounting, project accounting with complex draw schedules, fund accounting with investor tracking, and comprehensive financial documentation for high-stakes projects. Holding an MBA, I combine analytical rigor with a client-centric approach, always prioritizing integrity, transparency, and long-term partnerships. At Luxos Capital, as Partner, I\'m excited to leverage my deep real estate acumen to spearhead innovative developments, optimize capital structures, and deliver exceptional value to investors and stakeholders. I lead by making complex financial structures transparent, empowering teams with real-time data, aligning every decision with long-term value creation, and treating every stakeholder, investor, partner, or contractor, as a true partner.',
     image: '/josh-miller.jpg',
   },

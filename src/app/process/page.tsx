@@ -8,7 +8,7 @@ const investmentProcess = [
   { 
     number: '01', 
     title: 'Opportunity Sourcing', 
-    description: 'We leverage best-in-class market research to identify high-growth markets and neighborhoods that will generate the most value for our investors.',
+    description: 'We leverage best-in-class market research to identify high-growth markets and neighborhoods that will generate the most value for our investors and building owners.',
   },
   { 
     number: '02', 
@@ -18,7 +18,7 @@ const investmentProcess = [
   { 
     number: '03', 
     title: 'Deal Analysis', 
-    description: 'Rigorous due diligence and conservative financial modeling on every potential acquisition ensures we only pursue deals that meet our criteria.',
+    description: 'Rigorous due diligence and conservative financial modeling on every potential acquisition ensures we only pursue deals that meet our stringent criteria.',
   },
   { 
     number: '04', 
