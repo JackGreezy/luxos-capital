@@ -94,14 +94,14 @@ export default function HomePage() {
           <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 mb-8 sm:mb-16 pb-20 sm:pb-0">
             <Link 
               href="/invest" 
-              className="group relative px-10 py-4 bg-[#c9a961] text-white text-sm uppercase tracking-[0.2em] font-medium rounded-none hover:bg-[#b8944d] transition-all duration-300 overflow-hidden"
+              className="group relative px-6 sm:px-10 py-4 bg-[#c9a961] text-white text-sm uppercase tracking-[0.2em] font-medium rounded-none hover:bg-[#b8944d] transition-all duration-300 overflow-hidden whitespace-nowrap text-center"
             >
               <span className="relative z-10">View Opportunities</span>
               <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
             </Link>
             <Link 
               href="/strategy" 
-              className="group px-10 py-4 border border-white/40 text-white text-sm uppercase tracking-[0.2em] font-medium rounded-none hover:bg-white hover:text-gray-900 transition-all duration-300 backdrop-blur-sm"
+              className="group px-6 sm:px-10 py-4 border border-white/40 text-white text-sm uppercase tracking-[0.2em] font-medium rounded-none hover:bg-white hover:text-gray-900 transition-all duration-300 backdrop-blur-sm whitespace-nowrap text-center"
             >
               Our Approach
             </Link>
@@ -147,11 +147,11 @@ export default function HomePage() {
                 We are experts at finding great apartment deals and partnering with investors to raise capital. We then acquire, renovate, optimize rental income, and ultimately resell apartment buildings, maximizing investor returns at every stage.
               </p>
               
-              <div className="flex gap-4">
-                <Link href="/strategy" className="btn-gold px-8 py-3 uppercase text-sm font-bold">
+              <div className="flex flex-wrap gap-4">
+                <Link href="/strategy" className="btn-gold px-6 sm:px-8 py-3 uppercase text-sm font-bold whitespace-nowrap">
                   Learn More
                 </Link>
-                <Link href="/about" className="btn-outline-white px-8 py-3 uppercase text-sm font-bold">
+                <Link href="/about" className="btn-outline-white px-6 sm:px-8 py-3 uppercase text-sm font-bold whitespace-nowrap">
                   Meet The Team
                 </Link>
               </div>
@@ -315,40 +315,40 @@ export default function HomePage() {
         <div className="relative z-10 max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-2 min-h-[800px]">
             {/* Left Content */}
-            <div className="flex flex-col justify-center px-6 lg:px-16 py-20 lg:py-32">
+            <div className="flex flex-col justify-center px-4 sm:px-6 lg:px-16 py-20 lg:py-32">
               <div className="w-12 h-px bg-[#c9a961] mb-8" />
-              <h2 className="text-4xl lg:text-5xl xl:text-6xl font-light text-white leading-[1.1] mb-8">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-light text-white leading-[1.1] mb-8">
                 The <span className="font-semibold italic">Luxos</span><br />
                 Difference
               </h2>
-              <p className="text-xl text-white/70 leading-relaxed mb-12 max-w-lg">
+              <p className="text-base sm:text-lg lg:text-xl text-white/70 leading-relaxed mb-12 max-w-lg">
                 We don&apos;t just invest in properties. We transform communities, 
                 create value, and build lasting partnerships with investors who 
                 expect excellence.
               </p>
               
               {/* Elegant Stats Row */}
-              <div className="flex gap-12 mb-12">
-                <div>
-                  <div className="text-4xl lg:text-5xl font-light text-[#c9a961]">60+</div>
-                  <div className="text-xs uppercase tracking-[0.2em] text-white/50 mt-2">Years Combined<br/>Experience</div>
+              <div className="flex flex-wrap gap-6 sm:gap-8 lg:gap-12 mb-12">
+                <div className="flex-shrink-0">
+                  <div className="text-3xl sm:text-4xl lg:text-5xl font-light text-[#c9a961]">60+</div>
+                  <div className="text-[10px] sm:text-xs uppercase tracking-[0.15em] sm:tracking-[0.2em] text-white/50 mt-2 leading-tight">Years Combined<br/>Experience</div>
                 </div>
-                <div>
-                  <div className="text-4xl lg:text-5xl font-light text-[#c9a961]">20%+</div>
-                  <div className="text-xs uppercase tracking-[0.2em] text-white/50 mt-2">Target<br/>IRR</div>
+                <div className="flex-shrink-0">
+                  <div className="text-3xl sm:text-4xl lg:text-5xl font-light text-[#c9a961]">20%+</div>
+                  <div className="text-[10px] sm:text-xs uppercase tracking-[0.15em] sm:tracking-[0.2em] text-white/50 mt-2 leading-tight">Target<br/>IRR</div>
                 </div>
-                <div>
-                  <div className="text-4xl lg:text-5xl font-light text-[#c9a961]">1000s</div>
-                  <div className="text-xs uppercase tracking-[0.2em] text-white/50 mt-2">Units<br/>Managed</div>
+                <div className="flex-shrink-0">
+                  <div className="text-3xl sm:text-4xl lg:text-5xl font-light text-[#c9a961] whitespace-nowrap">1000s</div>
+                  <div className="text-[10px] sm:text-xs uppercase tracking-[0.15em] sm:tracking-[0.2em] text-white/50 mt-2 leading-tight">Units<br/>Managed</div>
                 </div>
               </div>
               
               <Link 
                 href="/strategy" 
-                className="inline-flex items-center gap-3 text-[#c9a961] text-sm uppercase tracking-[0.2em] font-medium group"
+                className="inline-flex items-center gap-3 text-[#c9a961] text-sm uppercase tracking-[0.2em] font-medium group whitespace-nowrap"
               >
-                <span>Discover Our Approach</span>
-                <span className="w-8 h-px bg-[#c9a961] group-hover:w-12 transition-all duration-300" />
+                <span className="whitespace-nowrap">Discover Our Approach</span>
+                <span className="w-8 h-px bg-[#c9a961] group-hover:w-12 transition-all duration-300 flex-shrink-0" />
               </Link>
             </div>
             
@@ -391,15 +391,15 @@ export default function HomePage() {
         {/* Bottom Feature Strip */}
         <div className="relative z-10 border-t border-white/10">
           <div className="max-w-7xl mx-auto grid md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-white/10">
-            <div className="px-8 py-10 group">
+            <div className="px-4 sm:px-8 py-8 sm:py-10 group">
               <h4 className="text-white font-semibold mb-2 group-hover:text-[#c9a961] transition-colors">Value Creation</h4>
               <p className="text-white/50 text-sm leading-relaxed">Strategic renovations that increase rents 40-70% and maximize property value.</p>
             </div>
-            <div className="px-8 py-10 group">
+            <div className="px-4 sm:px-8 py-8 sm:py-10 group">
               <h4 className="text-white font-semibold mb-2 group-hover:text-[#c9a961] transition-colors">Transparent Partnership</h4>
               <p className="text-white/50 text-sm leading-relaxed">Real-time updates and clear communication through our investor portal.</p>
             </div>
-            <div className="px-8 py-10 group">
+            <div className="px-4 sm:px-8 py-8 sm:py-10 group">
               <h4 className="text-white font-semibold mb-2 group-hover:text-[#c9a961] transition-colors">Aligned Interests</h4>
               <p className="text-white/50 text-sm leading-relaxed">We invest alongside you. Your success is our success.</p>
             </div>

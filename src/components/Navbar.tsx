@@ -43,8 +43,8 @@ export function Navbar() {
 
   return (
     <>
-      <header className={`fixed w-full z-50 top-0 transition-all duration-500 ${getHeaderBg()}`}>
-        <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+      <header className={`fixed w-full z-50 top-0 transition-all duration-500 overflow-x-hidden ${getHeaderBg()}`}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center h-full">
             <Image
@@ -76,7 +76,7 @@ export function Navbar() {
             ))}
             <Link 
               href="/invest"
-              className={`px-5 py-2.5 uppercase text-xs font-bold ml-2 transition-all duration-300 ${
+              className={`px-4 sm:px-5 py-2.5 uppercase text-xs font-bold ml-2 transition-all duration-300 whitespace-nowrap ${
                 isScrolled 
                   ? 'bg-gold text-white hover:bg-gold-dark rounded-none' 
                   : 'border border-[#c9a961] text-[#c9a961] hover:bg-[#c9a961] hover:text-white rounded-none'

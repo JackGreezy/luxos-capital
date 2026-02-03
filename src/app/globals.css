@@ -15,6 +15,11 @@
   
   html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
+  }
+  
+  body {
+    overflow-x: hidden;
   }
 }
 
@@ -32,15 +37,15 @@
   }
   
   .btn-gold {
-    @apply bg-gold hover:bg-gold-dark text-white font-semibold text-[13px] tracking-wider transition-all rounded-full;
+    @apply bg-gold hover:bg-gold-dark text-white font-semibold text-[13px] tracking-wider transition-all rounded-full whitespace-nowrap;
   }
   
   .btn-outline-white {
-    @apply border-2 border-white text-white font-medium text-[13px] tracking-wider transition-all rounded-full hover:bg-white hover:text-dark;
+    @apply border-2 border-white text-white font-medium text-[13px] tracking-wider transition-all rounded-full hover:bg-white hover:text-dark whitespace-nowrap;
   }
   
   .btn-outline-dark {
-    @apply border-2 border-dark text-dark font-medium text-[13px] tracking-wider transition-all rounded-full hover:bg-dark hover:text-white;
+    @apply border-2 border-dark text-dark font-medium text-[13px] tracking-wider transition-all rounded-full hover:bg-dark hover:text-white whitespace-nowrap;
   }
   
   .nav-item {
