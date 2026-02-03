@@ -1,0 +1,118 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+  
+  body {
+    @apply bg-white text-dark antialiased overflow-x-hidden;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer utilities {
+  .gold-text {
+    color: #c9a961;
+  }
+  
+  .bg-gold {
+    background-color: #c9a961;
+  }
+  
+  .border-gold {
+    border-color: #c9a961;
+  }
+  
+  .btn-gold {
+    @apply bg-gold hover:bg-gold-dark text-white font-semibold text-[13px] tracking-wider transition-all rounded-full;
+  }
+  
+  .btn-outline-white {
+    @apply border-2 border-white text-white font-medium text-[13px] tracking-wider transition-all rounded-full hover:bg-white hover:text-dark;
+  }
+  
+  .btn-outline-dark {
+    @apply border-2 border-dark text-dark font-medium text-[13px] tracking-wider transition-all rounded-full hover:bg-dark hover:text-white;
+  }
+  
+  .nav-item {
+    @apply text-[13px] tracking-[0.5px] font-medium;
+  }
+  
+  .team-card {
+    background: linear-gradient(135deg, #4a4d51 0%, #2a2d31 100%);
+  }
+  
+  .section-label {
+    @apply text-gold text-lg font-semibold uppercase tracking-wider;
+  }
+}
+
+/* Hero Video Animations */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse-slow {
+  0%, 100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 1s ease-out forwards;
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 1s ease-out forwards;
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 3s ease-in-out infinite;
+}
+
+/* Video Hero Specific Styles */
+.video-hero-content > * {
+  animation: fade-in-up 0.8s ease-out forwards;
+}
+
+.video-hero-content > *:nth-child(1) { animation-delay: 0.2s; opacity: 0; }
+.video-hero-content > *:nth-child(2) { animation-delay: 0.4s; opacity: 0; }
+.video-hero-content > *:nth-child(3) { animation-delay: 0.6s; opacity: 0; }
+.video-hero-content > *:nth-child(4) { animation-delay: 0.8s; opacity: 0; }
+
+/* Boutique Typography Enhancement */
+@layer base {
+  h1, h2, h3 {
+    letter-spacing: -0.02em;
+  }
+}
