@@ -23,7 +23,7 @@ export const teamMembers = [
 // Stats
 export const stats = [
   { value: '$200K+', label: 'Initial\nInvestment' },
-  { value: '30-200', label: 'Units Per\nProperty' },
+  { value: '30–200', label: 'Units Per\nProperty' },
   { value: '20%+', label: 'Target\nIRR' },
 ];
 

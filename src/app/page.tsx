@@ -91,7 +91,7 @@ export default function HomePage() {
           </p>
           
           {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 mb-16">
+          <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 mb-8 sm:mb-16 pb-20 sm:pb-0">
             <Link 
               href="/invest" 
               className="group relative px-10 py-4 bg-[#c9a961] text-white text-sm uppercase tracking-[0.2em] font-medium rounded-none hover:bg-[#b8944d] transition-all duration-300 overflow-hidden"
@@ -111,13 +111,15 @@ export default function HomePage() {
         
         {/* Stats Overlay Bar */}
         <div className="absolute bottom-0 left-0 right-0 bg-black/40 backdrop-blur-md border-t border-white/10">
-          <div className="max-w-6xl mx-auto px-6 py-6">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 py-4 sm:py-6">
             <div className="grid grid-cols-3 divide-x divide-white/20">
               {stats.map((stat, index) => (
-                <div key={index} className="text-center px-4">
-                  <div className="text-2xl sm:text-3xl md:text-4xl font-light text-[#c9a961] mb-1">{stat.value}</div>
-                  <div className="text-[10px] sm:text-xs uppercase tracking-[0.2em] text-white/70 font-light whitespace-pre-line">
-                    {stat.label}
+                <div key={index} className="text-center px-1 sm:px-4">
+                  <div className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-light text-[#c9a961] mb-1 whitespace-nowrap">{stat.value}</div>
+                  <div className="text-[9px] sm:text-[10px] md:text-xs uppercase tracking-[0.15em] sm:tracking-[0.2em] text-white/70 font-light leading-tight">
+                    {stat.label.split('\n').map((line, i) => (
+                      <span key={i} className="block">{line}</span>
+                    ))}
                   </div>
                 </div>
               ))}
