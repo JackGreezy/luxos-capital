@@ -1,9 +1,11 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
-import { deals } from '@/data/content';
+import { deals as fallbackDeals } from '@/data/content';
+import { fetchSanity } from '@/lib/sanity.client';
+import { dealsQuery } from '@/lib/sanity';
 
 const investorSteps = [
   { number: '01', title: 'Schedule a Call', description: 'Start with a brief introductory call to discuss your goals and learn about our approach.' },
@@ -20,8 +22,39 @@ const investorBenefits = [
 ];
 
 export default function InvestPage() {
+  type DealDetail = { label: string; value: string };
+  type Deal = {
+    name: string;
+    status: string;
+    image?: string;
+    imageUrl?: string;
+    details: DealDetail[];
+  };
+
+  const [deals, setDeals] = useState<Deal[]>(fallbackDeals);
   const [currentDeal, setCurrentDeal] = useState(0);
-  const deal = deals[currentDeal];
+  const deal = deals[currentDeal] || deals[0];
+
+  useEffect(() => {
+    let isMounted = true;
+
+    fetchSanity<Deal[]>(dealsQuery)
+      .then((data) => {
+        if (isMounted && Array.isArray(data) && data.length > 0) {
+          const normalized = data.map((item) => ({
+            ...item,
+            details: item.details ?? [],
+          }));
+          setDeals(normalized);
+          setCurrentDeal(0);
+        }
+      })
+      .catch(() => null);
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   return (
     <>
@@ -92,7 +125,7 @@ export default function InvestPage() {
               >
                 <div className="relative aspect-[16/10] overflow-hidden">
                   <img 
-                    src={dealItem.image} 
+                    src={dealItem.imageUrl || dealItem.image} 
                     alt={dealItem.name}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                   />

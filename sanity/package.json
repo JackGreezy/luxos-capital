@@ -1,0 +1,17 @@
+{
+  "name": "luxos-capital-sanity-studio",
+  "version": "1.0.0",
+  "private": true,
+  "main": "index.js",
+  "scripts": {
+    "dev": "sanity dev",
+    "start": "sanity start",
+    "build": "sanity build",
+    "deploy": "sanity deploy"
+  },
+  "dependencies": {
+    "@sanity/cli": "^3.90.0",
+    "sanity": "^4.22.0",
+    "styled-components": "^6.1.18"
+  }
+}

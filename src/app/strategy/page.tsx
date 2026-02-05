@@ -17,12 +17,12 @@ const businessModel = [
   { 
     number: '03', 
     title: 'Maximize', 
-    description: 'Increase rents 40-70% post-renovation through premium positioning and operational improvements.',
+    description: 'Increase rents 20-25% post-renovation through premium positioning and operational improvements.',
   },
   { 
     number: '04', 
     title: 'Exit', 
-    description: 'Refinance or sell stabilized properties, distributing profits to investors while targeting 20%+ IRR.',
+    description: 'Recapitalize and fully stabilize our properties, targeting an 8–12% yield on cost and a 2.0–2.5x+ equity multiple, with the flexibility to exit at our targeted IRR when conditions are optimal.',
   },
 ];
 
@@ -105,10 +105,10 @@ export default function StrategyPage() {
       <section className="bg-[#c9a961]">
         <div className="max-w-6xl mx-auto grid grid-cols-2 lg:grid-cols-4">
           {[
-            { value: '20%+', label: 'Target IRR' },
+            { value: '12-15%', label: 'Target IRR' },
             { value: '5-8%', label: 'Cash-on-Cash' },
-            { value: '40-70%', label: 'Rent Increase' },
-            { value: '3-5yr', label: 'Hold Period' },
+            { value: '20-25%', label: 'Rent Increase' },
+            { value: '30-36mo', label: 'Hold Period' },
           ].map((stat, index) => (
             <div 
               key={index} 
@@ -233,8 +233,9 @@ export default function StrategyPage() {
                 <div className="border-l-2 border-[#c9a961] pl-6">
                   <h4 className="text-white font-medium mb-2">Hold Strategy</h4>
                   <p className="text-white/50 text-sm leading-relaxed">
-                    Strategic 30-36 month repositioning period, with flexibility for long-term hold 
-                    when cash flow supports investor distributions.
+                    Strategic 30-36 month repositioning period with a focus on recapitalization for 
+                    long term hold to maximize yield to cost and rent increase for cash flow and 
+                    investor distributions.
                   </p>
                 </div>
                 <div className="border-l-2 border-[#c9a961] pl-6">

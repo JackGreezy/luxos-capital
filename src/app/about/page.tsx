@@ -1,13 +1,40 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { ArrowRight, Plus, Minus, Heart } from 'lucide-react';
+import { ArrowRight, Plus, Minus } from 'lucide-react';
 import { teamMembers } from '@/data/content';
+import { fetchSanity } from '@/lib/sanity.client';
+import { teamMembersQuery } from '@/lib/sanity';
+
+type TeamMember = {
+  name: string;
+  title: string;
+  bio?: string;
+  image?: string;
+  imageUrl?: string;
+};
 
 export default function AboutPage() {
   const [expandedMember, setExpandedMember] = useState<number | null>(null);
   const [showMission, setShowMission] = useState(false);
+  const [members, setMembers] = useState<TeamMember[]>(teamMembers);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    fetchSanity<TeamMember[]>(teamMembersQuery)
+      .then((data) => {
+        if (isMounted && Array.isArray(data) && data.length > 0) {
+          setMembers(data);
+        }
+      })
+      .catch(() => null);
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   return (
     <>
@@ -102,7 +129,7 @@ export default function AboutPage() {
           
           {/* Team Grid */}
           <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
-            {teamMembers.map((member, index) => (
+            {members.map((member, index) => (
               <div 
                 key={index} 
                 className="group relative"
@@ -110,7 +137,7 @@ export default function AboutPage() {
                 {/* Image Container */}
                 <div className="relative aspect-[3/4] overflow-hidden mb-6">
                   <img 
-                    src={member.image} 
+                    src={member.imageUrl || member.image} 
                     alt={member.name}
                     className="w-full h-full object-cover object-top grayscale group-hover:grayscale-0 transition-all duration-700"
                   />
@@ -156,7 +183,7 @@ export default function AboutPage() {
             <div className="text-white/80 text-xs uppercase tracking-[0.2em]">Units Managed</div>
           </div>
           <div className="px-8 py-12 lg:py-16 text-center border-r border-white/20 border-t lg:border-t-0">
-            <div className="text-4xl lg:text-5xl font-light text-white mb-2">20%+</div>
+            <div className="text-4xl lg:text-5xl font-light text-white mb-2">12-15%</div>
             <div className="text-white/80 text-xs uppercase tracking-[0.2em]">Target IRR</div>
           </div>
           <div className="px-8 py-12 lg:py-16 text-center border-t lg:border-t-0">
@@ -193,8 +220,15 @@ export default function AboutPage() {
                 <div className="flex items-start gap-4">
                   <div className="w-px h-12 bg-[#c9a961] flex-shrink-0 mt-1" />
                   <div>
-                    <h4 className="text-white font-medium mb-1">Premium Returns</h4>
-                    <p className="text-white/50 text-sm">Targeting annual returns of 15-20%+ through strategic value creation.</p>
+                    <h4 className="text-white font-medium mb-1">Exceptional Yield on Cost</h4>
+                    <p className="text-white/50 text-sm">We target stabilized yields of 8–12%+ on total invested capital (acquisition + renovations). By acquiring quality assets at favorable entry points and driving meaningful rent growth (often 25%+), we create a strong spread over market cap rates, ensuring robust cash-on-cash returns, reliable distributions, and downside protection.</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-4">
+                  <div className="w-px h-12 bg-[#c9a961] flex-shrink-0 mt-1" />
+                  <div>
+                    <h4 className="text-white font-medium mb-1">Attractive Equity Multiples</h4>
+                    <p className="text-white/50 text-sm">Our patient, value-creation strategy targets 2.0x–2.5x+ Equity Multiples (total cash returned / equity invested). This captures compounded cash flows, higher NOI from rent and occupancy gains, and appreciation at exit, prioritizing cumulative wealth over time-sensitive metrics like IRR.</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
@@ -223,9 +257,7 @@ export default function AboutPage() {
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div>
               <div className="flex items-center gap-3 mb-6">
-                <span className="text-3xl lg:text-4xl font-light text-gray-900">Luxos</span>
-                <Heart className="w-8 h-8 text-[#c9a961]" fill="#c9a961" />
-                <span className="text-3xl lg:text-4xl font-light text-gray-900">Cares</span>
+                <span className="text-3xl lg:text-4xl font-light text-gray-900">Luxos Cares</span>
               </div>
               <p className="text-xl text-gray-600 leading-relaxed mb-6">
                 Beyond financial success, we are committed to making a positive impact in the communities where we invest.

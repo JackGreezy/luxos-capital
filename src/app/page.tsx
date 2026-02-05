@@ -112,7 +112,7 @@ export default function HomePage() {
         {/* Stats Overlay Bar */}
         <div className="absolute bottom-0 left-0 right-0 bg-black/40 backdrop-blur-md border-t border-white/10">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 py-4 sm:py-6">
-            <div className="grid grid-cols-3 divide-x divide-white/20">
+            <div className="grid grid-cols-2 sm:grid-cols-4 divide-x divide-white/20">
               {stats.map((stat, index) => (
                 <div key={index} className="text-center px-1 sm:px-4">
                   <div className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-light text-[#c9a961] mb-1 whitespace-nowrap">{stat.value}</div>
@@ -135,16 +135,16 @@ export default function HomePage() {
             <div className="text-white">
               <h2 className="gold-text text-lg font-semibold mb-4 uppercase tracking-wider">About Us</h2>
               <h3 className="text-4xl font-bold leading-tight mb-6">
-                At Luxos Capital, our mission is to help real estate investors{' '}
-                <em className="text-gray-300">invest in multifamily apartments in the United States.</em>
+                Luxos Capital exists to empower real estate investors to{' '}
+                <em className="text-gray-300">allocate capital to multifamily residential assets across the United States.</em>
               </h3>
               
               <p className="text-gray-300 mb-6 leading-relaxed text-lg">
-                Our goal is to get premium returns for our investors and help you build lasting wealth. We provide first class service and make it super easy for you to invest in real estate.
+                We aim to deliver strong risk-adjusted returns and support long-term wealth building. Our team offers a high-touch experience and streamlines the path to institutional-quality multifamily investing.
               </p>
               
               <p className="text-gray-300 mb-8 leading-relaxed text-lg">
-                We are experts at finding great apartment deals and partnering with investors to raise capital. We then acquire, renovate, optimize rental income, and ultimately resell apartment buildings, maximizing investor returns at every stage.
+                We specialize in sourcing value-add apartment opportunities and aligning with capital partners to fund acquisitions. From purchase through renovation, lease-up, and disposition, we focus on operational and financial optimization to enhance returns at every phase.
               </p>
               
               <div className="flex flex-wrap gap-4">
@@ -334,8 +334,12 @@ export default function HomePage() {
                   <div className="text-[10px] sm:text-xs uppercase tracking-[0.15em] sm:tracking-[0.2em] text-white/50 mt-2 leading-tight">Years Combined<br/>Experience</div>
                 </div>
                 <div className="flex-shrink-0">
-                  <div className="text-3xl sm:text-4xl lg:text-5xl font-light text-[#c9a961]">20%+</div>
+                  <div className="text-3xl sm:text-4xl lg:text-5xl font-light text-[#c9a961]">12-15%</div>
                   <div className="text-[10px] sm:text-xs uppercase tracking-[0.15em] sm:tracking-[0.2em] text-white/50 mt-2 leading-tight">Target<br/>IRR</div>
+                </div>
+                <div className="flex-shrink-0">
+                  <div className="text-3xl sm:text-4xl lg:text-5xl font-light text-[#c9a961]">8-12%</div>
+                  <div className="text-[10px] sm:text-xs uppercase tracking-[0.15em] sm:tracking-[0.2em] text-white/50 mt-2 leading-tight">Yield to<br/>Cost</div>
                 </div>
                 <div className="flex-shrink-0">
                   <div className="text-3xl sm:text-4xl lg:text-5xl font-light text-[#c9a961] whitespace-nowrap">1000s</div>
@@ -393,7 +397,7 @@ export default function HomePage() {
           <div className="max-w-7xl mx-auto grid md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-white/10">
             <div className="px-4 sm:px-8 py-8 sm:py-10 group">
               <h4 className="text-white font-semibold mb-2 group-hover:text-[#c9a961] transition-colors">Value Creation</h4>
-              <p className="text-white/50 text-sm leading-relaxed">Strategic renovations that increase rents 40-70% and maximize property value.</p>
+              <p className="text-white/50 text-sm leading-relaxed">Strategic renovations that increase rents 20-25% and maximize property value.</p>
             </div>
             <div className="px-4 sm:px-8 py-8 sm:py-10 group">
               <h4 className="text-white font-semibold mb-2 group-hover:text-[#c9a961] transition-colors">Transparent Partnership</h4>

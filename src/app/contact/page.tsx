@@ -1,8 +1,9 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
+import { Turnstile } from '@marsidev/react-turnstile';
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -15,18 +16,76 @@ export default function ContactPage() {
     message: '',
     smsConsent: false,
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState('');
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
+  const turnstileRef = useRef<any>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    alert('Thank you for your message! Our team will get back to you within 24 hours.');
+  const formatPhoneDisplay = (phone: string) => {
+    const digitsOnly = phone.replace(/\D/g, '');
+    if (digitsOnly.length <= 3) return digitsOnly;
+    if (digitsOnly.length <= 6) return `(${digitsOnly.slice(0, 3)}) ${digitsOnly.slice(3)}`;
+    return `(${digitsOnly.slice(0, 3)}) ${digitsOnly.slice(3, 6)}-${digitsOnly.slice(6, 10)}`;
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value, type } = e.target;
+    
+    // Phone number - only allow digits
+    if (name === 'phone') {
+      const digitsOnly = value.replace(/\D/g, '');
+      setFormData(prev => ({ ...prev, [name]: digitsOnly }));
+      return;
+    }
+    
     setFormData(prev => ({
       ...prev,
       [name]: type === 'checkbox' ? (e.target as HTMLInputElement).checked : value
     }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setError('');
+
+    if (!turnstileToken) {
+      setError('Please complete the security verification.');
+      setIsSubmitting(false);
+      return;
+    }
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ...formData,
+          turnstileToken,
+        }),
+      });
+
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.error || 'Failed to submit form');
+      }
+
+      setSubmitted(true);
+      // Reset Turnstile
+      if (turnstileRef.current) {
+        turnstileRef.current.reset();
+      }
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'There was an error submitting your request. Please try again or call us directly.');
+      // Reset Turnstile on error
+      if (turnstileRef.current) {
+        turnstileRef.current.reset();
+      }
+      setTurnstileToken(null);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -78,7 +137,7 @@ export default function ContactPage() {
                 
                 <div className="border-l-2 border-[#c9a961] pl-6">
                   <h3 className="text-white/40 text-xs uppercase tracking-[0.2em] mb-2">Phone</h3>
-                  <p className="text-white">+1 (949) 555-0123</p>
+                  <p className="text-white">+1 (949) 749-7499</p>
                 </div>
                 
                 <div className="border-l-2 border-[#c9a961] pl-6">
@@ -116,120 +175,168 @@ export default function ContactPage() {
                 We&apos;ll respond within 24 hours.
               </h2>
               
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid grid-cols-2 gap-4">
+              {submitted ? (
+                <div className="text-center py-12">
+                  <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                  </div>
+                  <h3 className="text-2xl font-light text-gray-900 mb-2">
+                    Thank You!
+                  </h3>
+                  <p className="text-gray-600">
+                    We have received your message and will be in touch within 24 hours.
+                  </p>
+                </div>
+              ) : (
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-gray-500 text-xs uppercase tracking-[0.15em] mb-2">First Name*</label>
+                      <input 
+                        type="text" 
+                        name="firstName"
+                        required 
+                        value={formData.firstName}
+                        onChange={handleChange}
+                        disabled={isSubmitting}
+                        className="w-full px-0 py-3 bg-transparent border-0 border-b border-gray-300 focus:border-[#c9a961] focus:outline-none transition-colors disabled:opacity-50"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-gray-500 text-xs uppercase tracking-[0.15em] mb-2">Last Name*</label>
+                      <input 
+                        type="text" 
+                        name="lastName"
+                        required 
+                        value={formData.lastName}
+                        onChange={handleChange}
+                        disabled={isSubmitting}
+                        className="w-full px-0 py-3 bg-transparent border-0 border-b border-gray-300 focus:border-[#c9a961] focus:outline-none transition-colors disabled:opacity-50"
+                      />
+                    </div>
+                  </div>
+                  
                   <div>
-                    <label className="block text-gray-500 text-xs uppercase tracking-[0.15em] mb-2">First Name*</label>
+                    <label className="block text-gray-500 text-xs uppercase tracking-[0.15em] mb-2">Email*</label>
                     <input 
-                      type="text" 
-                      name="firstName"
+                      type="email" 
+                      name="email"
                       required 
-                      value={formData.firstName}
+                      value={formData.email}
                       onChange={handleChange}
-                      className="w-full px-0 py-3 bg-transparent border-0 border-b border-gray-300 focus:border-[#c9a961] focus:outline-none transition-colors"
+                      disabled={isSubmitting}
+                      className="w-full px-0 py-3 bg-transparent border-0 border-b border-gray-300 focus:border-[#c9a961] focus:outline-none transition-colors disabled:opacity-50"
                     />
                   </div>
+                  
                   <div>
-                    <label className="block text-gray-500 text-xs uppercase tracking-[0.15em] mb-2">Last Name*</label>
+                    <label className="block text-gray-500 text-xs uppercase tracking-[0.15em] mb-2">Phone*</label>
                     <input 
-                      type="text" 
-                      name="lastName"
+                      type="tel" 
+                      name="phone"
                       required 
-                      value={formData.lastName}
+                      value={formatPhoneDisplay(formData.phone)}
                       onChange={handleChange}
-                      className="w-full px-0 py-3 bg-transparent border-0 border-b border-gray-300 focus:border-[#c9a961] focus:outline-none transition-colors"
+                      disabled={isSubmitting}
+                      maxLength={14}
+                      className="w-full px-0 py-3 bg-transparent border-0 border-b border-gray-300 focus:border-[#c9a961] focus:outline-none transition-colors disabled:opacity-50"
+                      placeholder="(555) 555-5555"
                     />
                   </div>
-                </div>
-                
-                <div>
-                  <label className="block text-gray-500 text-xs uppercase tracking-[0.15em] mb-2">Email*</label>
-                  <input 
-                    type="email" 
-                    name="email"
-                    required 
-                    value={formData.email}
-                    onChange={handleChange}
-                    className="w-full px-0 py-3 bg-transparent border-0 border-b border-gray-300 focus:border-[#c9a961] focus:outline-none transition-colors"
-                  />
-                </div>
-                
-                <div>
-                  <label className="block text-gray-500 text-xs uppercase tracking-[0.15em] mb-2">Phone*</label>
-                  <input 
-                    type="tel" 
-                    name="phone"
-                    required 
-                    value={formData.phone}
-                    onChange={handleChange}
-                    className="w-full px-0 py-3 bg-transparent border-0 border-b border-gray-300 focus:border-[#c9a961] focus:outline-none transition-colors"
-                  />
-                </div>
-                
-                <div>
-                  <label className="block text-gray-500 text-xs uppercase tracking-[0.15em] mb-2">Accredited Investor?</label>
-                  <select 
-                    name="investorStatus"
-                    value={formData.investorStatus}
-                    onChange={handleChange}
-                    className="w-full px-0 py-3 bg-transparent border-0 border-b border-gray-300 focus:border-[#c9a961] focus:outline-none transition-colors appearance-none cursor-pointer"
+                  
+                  <div>
+                    <label className="block text-gray-500 text-xs uppercase tracking-[0.15em] mb-2">Accredited Investor?</label>
+                    <select 
+                      name="investorStatus"
+                      value={formData.investorStatus}
+                      onChange={handleChange}
+                      disabled={isSubmitting}
+                      className="w-full px-0 py-3 bg-transparent border-0 border-b border-gray-300 focus:border-[#c9a961] focus:outline-none transition-colors appearance-none cursor-pointer disabled:opacity-50"
+                    >
+                      <option value="">Select one...</option>
+                      <option value="yes">Yes</option>
+                      <option value="no">No</option>
+                      <option value="unsure">Not sure</option>
+                    </select>
+                  </div>
+                  
+                  <div>
+                    <label className="block text-gray-500 text-xs uppercase tracking-[0.15em] mb-2">Investment Amount</label>
+                    <select 
+                      name="investmentAmount"
+                      value={formData.investmentAmount}
+                      onChange={handleChange}
+                      disabled={isSubmitting}
+                      className="w-full px-0 py-3 bg-transparent border-0 border-b border-gray-300 focus:border-[#c9a961] focus:outline-none transition-colors appearance-none cursor-pointer disabled:opacity-50"
+                    >
+                      <option value="">Select range...</option>
+                      <option value="100k-250k">$100,000 – $250,000</option>
+                      <option value="250k-500k">$250,000 – $500,000</option>
+                      <option value="500k-1m">$500,000 – $1,000,000</option>
+                      <option value="1m+">$1,000,000+</option>
+                    </select>
+                  </div>
+                  
+                  <div>
+                    <label className="block text-gray-500 text-xs uppercase tracking-[0.15em] mb-2">Message</label>
+                    <textarea 
+                      name="message"
+                      rows={3} 
+                      value={formData.message}
+                      onChange={handleChange}
+                      disabled={isSubmitting}
+                      className="w-full px-0 py-3 bg-transparent border-0 border-b border-gray-300 focus:border-[#c9a961] focus:outline-none transition-colors resize-none disabled:opacity-50"
+                      placeholder="Tell us about your investment goals..."
+                    />
+                  </div>
+                  
+                  <div className="flex items-start gap-3 pt-2">
+                    <input 
+                      type="checkbox" 
+                      id="smsConsent"
+                      name="smsConsent"
+                      checked={formData.smsConsent}
+                      onChange={handleChange}
+                      disabled={isSubmitting}
+                      className="mt-1 accent-[#c9a961] disabled:opacity-50"
+                    />
+                    <label htmlFor="smsConsent" className="text-gray-500 text-sm leading-relaxed">
+                      I consent to receive communications from Luxos Capital.
+                    </label>
+                  </div>
+
+                  {/* Turnstile */}
+                  <div className="flex justify-center pt-2">
+                    <Turnstile
+                      ref={turnstileRef}
+                      siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || ''}
+                      onSuccess={(token) => setTurnstileToken(token)}
+                      onError={() => setTurnstileToken(null)}
+                      onExpire={() => setTurnstileToken(null)}
+                      options={{
+                        theme: 'light',
+                        size: 'normal',
+                      }}
+                    />
+                  </div>
+
+                  {error && (
+                    <div className="p-4 bg-red-50 border border-red-200 rounded text-red-700 text-sm">
+                      {error}
+                    </div>
+                  )}
+                  
+                  <button 
+                    type="submit" 
+                    disabled={isSubmitting || !turnstileToken}
+                    className="w-full bg-[#c9a961] text-white px-8 py-4 text-sm uppercase tracking-[0.15em] font-medium hover:bg-[#b8944d] transition-colors mt-4 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    <option value="">Select one...</option>
-                    <option value="yes">Yes</option>
-                    <option value="no">No</option>
-                    <option value="unsure">Not sure</option>
-                  </select>
-                </div>
-                
-                <div>
-                  <label className="block text-gray-500 text-xs uppercase tracking-[0.15em] mb-2">Investment Amount</label>
-                  <select 
-                    name="investmentAmount"
-                    value={formData.investmentAmount}
-                    onChange={handleChange}
-                    className="w-full px-0 py-3 bg-transparent border-0 border-b border-gray-300 focus:border-[#c9a961] focus:outline-none transition-colors appearance-none cursor-pointer"
-                  >
-                    <option value="">Select range...</option>
-                    <option value="100k-250k">$100,000 – $250,000</option>
-                    <option value="250k-500k">$250,000 – $500,000</option>
-                    <option value="500k-1m">$500,000 – $1,000,000</option>
-                    <option value="1m+">$1,000,000+</option>
-                  </select>
-                </div>
-                
-                <div>
-                  <label className="block text-gray-500 text-xs uppercase tracking-[0.15em] mb-2">Message</label>
-                  <textarea 
-                    name="message"
-                    rows={3} 
-                    value={formData.message}
-                    onChange={handleChange}
-                    className="w-full px-0 py-3 bg-transparent border-0 border-b border-gray-300 focus:border-[#c9a961] focus:outline-none transition-colors resize-none"
-                    placeholder="Tell us about your investment goals..."
-                  />
-                </div>
-                
-                <div className="flex items-start gap-3 pt-2">
-                  <input 
-                    type="checkbox" 
-                    id="smsConsent"
-                    name="smsConsent"
-                    checked={formData.smsConsent}
-                    onChange={handleChange}
-                    className="mt-1 accent-[#c9a961]"
-                  />
-                  <label htmlFor="smsConsent" className="text-gray-500 text-sm leading-relaxed">
-                    I consent to receive communications from Luxos Capital.
-                  </label>
-                </div>
-                
-                <button 
-                  type="submit" 
-                  className="w-full bg-[#c9a961] text-white px-8 py-4 text-sm uppercase tracking-[0.15em] font-medium hover:bg-[#b8944d] transition-colors mt-4"
-                >
-                  Send Message
-                </button>
-              </form>
+                    {isSubmitting ? 'Submitting...' : 'Send Message'}
+                  </button>
+                </form>
+              )}
             </div>
           </div>
         </div>

@@ -19,7 +19,7 @@ const allFaqs = [...faqItems, ...additionalFaqs];
 const quickAnswers = [
   { question: 'Minimum Investment', answer: '$200K initial investment' },
   { question: 'Hold Period', answer: '3-5 years typically' },
-  { question: 'Target IRR', answer: '20%+ annually' },
+  { question: 'Target IRR', answer: '12-15% annually' },
   { question: 'Distributions', answer: 'Quarterly when available' },
   { question: 'Investor Type', answer: 'Accredited investors' },
   { question: 'Tax Documents', answer: 'K-1 provided annually' },
@@ -159,7 +159,7 @@ export default function FAQPage() {
                 <div className="border-l-2 border-[#c9a961] pl-6">
                   <h4 className="text-white font-medium mb-2">Risk & Returns</h4>
                   <p className="text-white/50 text-sm leading-relaxed">
-                    All investments carry risk. We target 20%+ IRR through conservative underwriting and value-add strategies.
+                    All investments carry risk. We target 12-15% IRR and 8-12% yield to cost through conservative underwriting and value-add strategies.
                   </p>
                 </div>
               </div>

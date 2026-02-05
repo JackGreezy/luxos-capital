@@ -80,8 +80,8 @@ export function Footer() {
                 </a>
               </p>
               <p>
-                <a href="tel:+19495550123" className="text-white hover:text-gold transition">
-                  +1 (949) 555-0123
+                <a href="tel:+19497497499" className="text-white hover:text-gold transition">
+                  +1 (949) 749-7499
                 </a>
               </p>
               <p>Orange County, California</p>

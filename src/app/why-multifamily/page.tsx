@@ -95,8 +95,8 @@ export default function WhyMultifamilyPage() {
       <section className="bg-[#c9a961]">
         <div className="max-w-6xl mx-auto grid grid-cols-2 lg:grid-cols-4">
           {[
-            { value: '20%+', label: 'Target IRR' },
-            { value: '3-5yr', label: 'Hold Period' },
+            { value: '12-15%', label: 'Target Yield Cost' },
+            { value: '7-10+', label: 'Hold Period' },
             { value: '$200K', label: 'Min Investment' },
             { value: '2x', label: 'Equity Multiple' },
           ].map((stat, index) => (

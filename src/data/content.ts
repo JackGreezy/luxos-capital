@@ -8,7 +8,7 @@ export const teamMembers = [
   },
   {
     name: 'Josh Miller',
-    title: 'CFO',
+    title: 'Chief Financial Officer',
     bio: 'As a seasoned financial strategist and accounting leader with over 15 years of hands-on experience, I bring a proven track record of driving growth and operational excellence to Luxos Capital. My passion for transforming complex financial landscapes into opportunities for sustainable success has fueled my career across diverse industries, with a particular focus on real estate development, where I\'ve managed full cycle accounting, project accounting with complex draw schedules, fund accounting with investor tracking, and comprehensive financial documentation for high-stakes projects. Holding an MBA, I combine analytical rigor with a client-centric approach, always prioritizing integrity, transparency, and long-term partnerships. At Luxos Capital, as Partner, I\'m excited to leverage my deep real estate acumen to spearhead innovative developments, optimize capital structures, and deliver exceptional value to investors and stakeholders. I lead by making complex financial structures transparent, empowering teams with real-time data, aligning every decision with long-term value creation, and treating every stakeholder, investor, partner, or contractor, as a true partner.',
     image: '/josh-miller.jpg',
   },
@@ -24,7 +24,8 @@ export const teamMembers = [
 export const stats = [
   { value: '$200K+', label: 'Initial\nInvestment' },
   { value: '30–200', label: 'Units Per\nProperty' },
-  { value: '20%+', label: 'Target\nIRR' },
+  { value: '12-15%', label: 'Target\nIRR' },
+  { value: '8-12%', label: 'Yield to\nCost' },
 ];
 
 // Process Steps
@@ -63,7 +64,7 @@ export const faqItems = [
   { question: 'Who can invest?', answer: 'Typically qualified/accredited investors depending on the structure. Accreditation requirements are set by the SEC and vary based on income, net worth, and professional experience.' },
   { question: 'How are returns generated?', answer: 'Returns are generated through rent increases, ongoing rental income (cash flow), equity growth through property appreciation, tax-advantaged refinance events, and eventual property sale.' },
   { question: 'How long is capital invested?', answer: 'Strategic 30-36 month holding period, or consider long-term hold for positive cash flow. Hold periods vary by project and market conditions.' },
-  { question: 'What are the target returns?', answer: 'Luxos Capital is targeting an IRR of 20%+ and cash-on-cash return of 5-8%. Individual project returns may vary.' },
+  { question: 'What are the target returns?', answer: 'Luxos Capital is targeting an IRR of 12-15% and yield to cost of 8-12%, with cash-on-cash return of 5-8%. Individual project returns may vary.' },
   { question: 'Will I receive updates?', answer: 'Yes, ongoing investor communication and reporting through our investor online portal and mobile app.' },
   { question: 'What documents will I receive?', answer: 'Each offering is supported through formal investment documents including: Private Placement Memorandum (PPM), Subscription Agreement, and Operating Agreement.' },
   { question: 'What is the minimum investment?', answer: 'Minimum investment amounts vary by deal and are specified in each offering\'s documentation. Contact us to learn about current opportunities.' },

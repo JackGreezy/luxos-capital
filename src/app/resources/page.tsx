@@ -1,9 +1,11 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
-import { resources } from '@/data/content';
+import { resources as fallbackResources } from '@/data/content';
+import { fetchSanity } from '@/lib/sanity.client';
+import { resourcesQuery } from '@/lib/sanity';
 
 const glossaryTerms = [
   { term: 'Cap Rate', definition: 'Capitalization rate — the ratio of Net Operating Income to property value, used to estimate investment return potential.' },
@@ -17,7 +19,33 @@ const glossaryTerms = [
 ];
 
 export default function ResourcesPage() {
+  type ResourceItem = { title: string; description?: string };
+  type ResourceCategory = { category: string; items: ResourceItem[] };
+
+  const [categories, setCategories] = useState<ResourceCategory[]>(fallbackResources);
   const [activeCategory, setActiveCategory] = useState(0);
+  const activeResources = categories[activeCategory] || categories[0];
+
+  useEffect(() => {
+    let isMounted = true;
+
+    fetchSanity<ResourceCategory[]>(resourcesQuery)
+      .then((data) => {
+        if (isMounted && Array.isArray(data) && data.length > 0) {
+          const normalized = data.map((item) => ({
+            ...item,
+            items: item.items ?? [],
+          }));
+          setCategories(normalized);
+          setActiveCategory(0);
+        }
+      })
+      .catch(() => null);
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   return (
     <>
@@ -59,7 +87,7 @@ export default function ResourcesPage() {
             <div className="lg:col-span-8">
               {/* Category Tabs */}
               <div className="flex flex-wrap gap-4 mb-12">
-                {resources.map((category, index) => (
+                {categories.map((category, index) => (
                   <button
                     key={index}
                     onClick={() => setActiveCategory(index)}
@@ -76,7 +104,7 @@ export default function ResourcesPage() {
               
               {/* Active Category Content */}
               <div className="space-y-0">
-                {resources[activeCategory].items.map((item, itemIndex) => (
+                {activeResources.items.map((item, itemIndex) => (
                   <div 
                     key={itemIndex} 
                     className="py-8 border-t border-gray-200 group cursor-pointer"
