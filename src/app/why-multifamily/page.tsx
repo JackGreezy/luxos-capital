@@ -211,7 +211,7 @@ export default function WhyMultifamilyPage() {
               Why Multifamily <span className="font-semibold italic">Outperforms</span>
             </h2>
             <p className="text-white/60 text-lg leading-relaxed">
-              See how apartments compare to other investment options across key performance factors.
+              See how multi-family assets compare to other investment options across key performance factors.
             </p>
           </div>
           

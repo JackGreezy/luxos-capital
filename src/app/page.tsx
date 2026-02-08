@@ -86,7 +86,7 @@ export default function HomePage() {
           
           {/* Subheadline */}
           <p className="text-lg md:text-xl text-white/80 mb-10 max-w-2xl leading-relaxed font-light tracking-wide">
-            Premium returns through carefully curated value-add apartment acquisitions. 
+            Premium returns through carefully curated value-add multi-family asset acquisitions.
             <span className="hidden sm:inline"> Building lasting wealth for discerning investors.</span>
           </p>
           
@@ -144,7 +144,7 @@ export default function HomePage() {
               </p>
               
               <p className="text-gray-300 mb-8 leading-relaxed text-lg">
-                We specialize in sourcing value-add apartment opportunities and aligning with capital partners to fund acquisitions. From purchase through renovation, lease-up, and disposition, we focus on operational and financial optimization to enhance returns at every phase.
+                We specialize in sourcing value-add multi-family asset opportunities and aligning with capital partners to fund acquisitions. From purchase through renovation, lease-up, and disposition, we focus on operational and financial optimization to enhance returns at every phase.
               </p>
               
               <div className="flex flex-wrap gap-4">
