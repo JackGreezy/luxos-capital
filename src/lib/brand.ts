@@ -46,7 +46,7 @@ export function getBrand() {
     brand_tagline: 'Passive Multifamily Real Estate Investing',
     brand_dark_bg: COLORS.dark,
     supportPhone: '+1 (949) 749-7499',
-    supportEmail: 'investors@luxoscapital.com',
+    supportEmail: 'info@luxoscapital.com',
     service_area: 'Serving investors nationwide from Southern California',
     portfolio_url: 'https://luxoscapital.com/about',
     portfolio_blurb: 'Strategic multifamily real estate investments.',

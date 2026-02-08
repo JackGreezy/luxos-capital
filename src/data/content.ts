@@ -70,37 +70,9 @@ export const faqItems = [
   { question: 'What is the minimum investment?', answer: 'Minimum investment amounts vary by deal and are specified in each offering\'s documentation. Contact us to learn about current opportunities.' },
 ];
 
-// Deals
-export const deals = [
-  {
-    id: 1,
-    status: 'Investment Open',
-    name: 'Luxos Residences Riverside',
-    image: '/images/deals-luxos-residences/image.webp',
-    details: [
-      { label: 'Location', value: 'Riverside, California, US' },
-      { label: 'Year Built', value: '1985' },
-      { label: 'Units', value: '86' },
-      { label: 'Projected Average Annualized Returns', value: '20.00%' },
-      { label: 'Equity Multiple', value: '2X' },
-      { label: 'Project Hold Period', value: '3-5 years' },
-    ],
-  },
-  {
-    id: 2,
-    status: 'Coming Soon',
-    name: 'Luxos Gardens San Bernardino',
-    image: '/images/deals-luxos-gardens/image.jpeg',
-    details: [
-      { label: 'Location', value: 'San Bernardino, California, US' },
-      { label: 'Year Built', value: '1978' },
-      { label: 'Units', value: '120' },
-      { label: 'Projected Average Annualized Returns', value: '22.00%' },
-      { label: 'Equity Multiple', value: '2.2X' },
-      { label: 'Project Hold Period', value: '3-5 years' },
-    ],
-  },
-];
+// Deals - Now managed via Sanity CMS
+// Remove hardcoded deals - all deals should come from Sanity
+export const deals: never[] = [];
 
 // Resources
 export const resources = [

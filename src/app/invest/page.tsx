@@ -3,7 +3,6 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
-import { deals as fallbackDeals } from '@/data/content';
 import { fetchSanity } from '@/lib/sanity.client';
 import { dealsQuery } from '@/lib/sanity';
 
@@ -31,9 +30,8 @@ export default function InvestPage() {
     details: DealDetail[];
   };
 
-  const [deals, setDeals] = useState<Deal[]>(fallbackDeals);
+  const [deals, setDeals] = useState<Deal[]>([]);
   const [currentDeal, setCurrentDeal] = useState(0);
-  const deal = deals[currentDeal] || deals[0];
 
   useEffect(() => {
     let isMounted = true;
@@ -55,6 +53,8 @@ export default function InvestPage() {
       isMounted = false;
     };
   }, []);
+
+  const deal = deals[currentDeal] || null;
 
   return (
     <>
@@ -116,85 +116,104 @@ export default function InvestPage() {
           </div>
           
           {/* Deal Cards */}
-          <div className="grid lg:grid-cols-2 gap-8">
-            {deals.map((dealItem, index) => (
-              <div 
-                key={index}
-                className={`group cursor-pointer ${currentDeal === index ? 'ring-2 ring-[#c9a961]' : ''}`}
-                onClick={() => setCurrentDeal(index)}
-              >
-                <div className="relative aspect-[16/10] overflow-hidden">
-                  <img 
-                    src={dealItem.imageUrl || dealItem.image} 
-                    alt={dealItem.name}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
-                  
-                  {/* Status Badge */}
-                  <div className="absolute top-4 left-4 sm:top-6 sm:left-6 z-30">
-                    <span className={`px-3 py-1.5 sm:px-4 sm:py-2 text-[10px] sm:text-xs uppercase tracking-[0.15em] font-medium rounded-sm ${
-                      dealItem.status === 'Investment Open' 
-                        ? 'bg-green-600 text-white' 
-                        : 'bg-[#c9a961] text-white'
-                    }`}>
-                      {dealItem.status}
-                    </span>
+          {deals.length > 0 ? (
+            <>
+              <div className="grid lg:grid-cols-2 gap-8">
+                {deals.map((dealItem, index) => (
+                  <div 
+                    key={index}
+                    className={`group cursor-pointer ${currentDeal === index ? 'ring-2 ring-[#c9a961]' : ''}`}
+                    onClick={() => setCurrentDeal(index)}
+                  >
+                    <div className="relative aspect-[16/10] overflow-hidden">
+                      <img 
+                        src={dealItem.imageUrl || dealItem.image} 
+                        alt={dealItem.name}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
+                      
+                      {/* Status Badge */}
+                      <div className="absolute top-4 left-4 sm:top-6 sm:left-6 z-30">
+                        <span className={`px-3 py-1.5 sm:px-4 sm:py-2 text-[10px] sm:text-xs uppercase tracking-[0.15em] font-medium rounded-sm ${
+                          dealItem.status === 'Investment Open' 
+                            ? 'bg-green-600 text-white' 
+                            : 'bg-[#c9a961] text-white'
+                        }`}>
+                          {dealItem.status}
+                        </span>
+                      </div>
+                      
+                      {/* Deal Info - positioned to avoid badge overlap */}
+                      <div className="absolute bottom-0 left-0 right-0 z-10">
+                        {/* Background overlay for text readability */}
+                        <div className="bg-gradient-to-t from-black/95 via-black/80 to-transparent pt-16 pb-4 sm:pb-6 px-4 sm:px-6">
+                          <h3 className="text-lg sm:text-xl lg:text-2xl font-light text-white mb-3 sm:mb-4 leading-tight pr-20 sm:pr-0">{dealItem.name}</h3>
+                          <div className="grid grid-cols-3 gap-2 sm:gap-4">
+                            {dealItem.details.slice(0, 3).map((detail, detailIndex) => (
+                              <div key={detailIndex}>
+                                <div className="text-white/60 sm:text-white/50 text-[10px] sm:text-xs uppercase tracking-wider mb-1">{detail.label}</div>
+                                <div className="text-white text-sm sm:text-base font-medium leading-tight">{detail.value}</div>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  
-                  {/* Deal Info - positioned to avoid badge overlap */}
-                  <div className="absolute bottom-0 left-0 right-0 z-10">
-                    {/* Background overlay for text readability */}
-                    <div className="bg-gradient-to-t from-black/95 via-black/80 to-transparent pt-16 pb-4 sm:pb-6 px-4 sm:px-6">
-                      <h3 className="text-lg sm:text-xl lg:text-2xl font-light text-white mb-3 sm:mb-4 leading-tight pr-20 sm:pr-0">{dealItem.name}</h3>
-                      <div className="grid grid-cols-3 gap-2 sm:gap-4">
-                        {dealItem.details.slice(0, 3).map((detail, detailIndex) => (
-                          <div key={detailIndex}>
-                            <div className="text-white/60 sm:text-white/50 text-[10px] sm:text-xs uppercase tracking-wider mb-1">{detail.label}</div>
-                            <div className="text-white text-sm sm:text-base font-medium leading-tight">{detail.value}</div>
+                ))}
+              </div>
+              
+              {/* Selected Deal Details */}
+              {deal && (
+                <div className="mt-12 p-8 lg:p-12 bg-gray-50">
+                  <div className="grid lg:grid-cols-2 gap-12">
+                    <div>
+                      <span className="text-[#c9a961] text-xs uppercase tracking-[0.2em] mb-4 block">{deal.status}</span>
+                      <h3 className="text-3xl font-light text-gray-900 mb-6">{deal.name}</h3>
+                      <div className="space-y-4">
+                        {deal.details.map((item, index) => (
+                          <div key={index} className="flex justify-between items-center py-3 border-b border-gray-200">
+                            <span className="text-gray-500">{item.label}</span>
+                            <span className="font-medium text-gray-900">{item.value}</span>
                           </div>
                         ))}
                       </div>
                     </div>
+                    <div className="flex items-end">
+                      <div>
+                        <p className="text-gray-600 leading-relaxed mb-8">
+                          This investment opportunity is available to accredited investors. 
+                          Contact our investor relations team to receive the full investment 
+                          memorandum and discuss whether this opportunity aligns with your goals.
+                        </p>
+                        <Link 
+                          href="/contact" 
+                          className="inline-flex items-center gap-3 bg-[#c9a961] text-white px-8 py-4 text-sm uppercase tracking-[0.15em] font-medium hover:bg-[#b8944d] transition-colors"
+                        >
+                          <span>Request Information</span>
+                          <ArrowRight className="w-4 h-4" />
+                        </Link>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
-          </div>
-          
-          {/* Selected Deal Details */}
-          <div className="mt-12 p-8 lg:p-12 bg-gray-50">
-            <div className="grid lg:grid-cols-2 gap-12">
-              <div>
-                <span className="text-[#c9a961] text-xs uppercase tracking-[0.2em] mb-4 block">{deal.status}</span>
-                <h3 className="text-3xl font-light text-gray-900 mb-6">{deal.name}</h3>
-                <div className="space-y-4">
-                  {deal.details.map((item, index) => (
-                    <div key={index} className="flex justify-between items-center py-3 border-b border-gray-200">
-                      <span className="text-gray-500">{item.label}</span>
-                      <span className="font-medium text-gray-900">{item.value}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-              <div className="flex items-end">
-                <div>
-                  <p className="text-gray-600 leading-relaxed mb-8">
-                    This investment opportunity is available to accredited investors. 
-                    Contact our investor relations team to receive the full investment 
-                    memorandum and discuss whether this opportunity aligns with your goals.
-                  </p>
-                  <Link 
-                    href="/contact" 
-                    className="inline-flex items-center gap-3 bg-[#c9a961] text-white px-8 py-4 text-sm uppercase tracking-[0.15em] font-medium hover:bg-[#b8944d] transition-colors"
-                  >
-                    <span>Request Information</span>
-                    <ArrowRight className="w-4 h-4" />
-                  </Link>
-                </div>
-              </div>
+              )}
+            </>
+          ) : (
+            <div className="text-center py-16">
+              <p className="text-gray-600 text-lg mb-8">
+                No investment opportunities are currently available. Please check back soon or contact us to be notified when new opportunities arise.
+              </p>
+              <Link 
+                href="/contact" 
+                className="inline-flex items-center gap-3 bg-[#c9a961] text-white px-8 py-4 text-sm uppercase tracking-[0.15em] font-medium hover:bg-[#b8944d] transition-colors"
+              >
+                <span>Contact Us</span>
+                <ArrowRight className="w-4 h-4" />
+              </Link>
             </div>
-          </div>
+          )}
         </div>
       </section>
 

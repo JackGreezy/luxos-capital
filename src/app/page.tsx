@@ -12,7 +12,9 @@ import {
   ChevronLeft,
   ChevronRight,
 } from 'lucide-react';
-import { stats, deals } from '@/data/content';
+import { stats } from '@/data/content';
+import { fetchSanity } from '@/lib/sanity.client';
+import { dealsQuery } from '@/lib/sanity';
 
 // Core Values
 const coreValues = [
@@ -23,8 +25,18 @@ const coreValues = [
   { icon: Zap, topLabel: 'Speed Of', bottomLabel: 'Execution' },
 ];
 
+type DealDetail = { label: string; value: string };
+type Deal = {
+  name: string;
+  status: string;
+  image?: string;
+  imageUrl?: string;
+  details: DealDetail[];
+};
+
 export default function HomePage() {
   const [currentDeal, setCurrentDeal] = useState(0);
+  const [deals, setDeals] = useState<Deal[]>([]);
   const [formData, setFormData] = useState({ firstName: '', lastName: '', email: '', phone: '', message: '', smsConsent: false });
   const videoRef = useRef<HTMLVideoElement>(null);
 
@@ -35,6 +47,27 @@ export default function HomePage() {
         // Autoplay might be blocked, that's okay
       });
     }
+  }, []);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    fetchSanity<Deal[]>(dealsQuery)
+      .then((data) => {
+        if (isMounted && Array.isArray(data) && data.length > 0) {
+          const normalized = data.map((item) => ({
+            ...item,
+            details: item.details ?? [],
+          }));
+          setDeals(normalized);
+          setCurrentDeal(0);
+        }
+      })
+      .catch(() => null);
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -259,46 +292,52 @@ export default function HomePage() {
       </section>
 
       {/* Current Deals */}
-      <section className="bg-gray-100 py-20">
-        <div className="max-w-6xl mx-auto px-6">
-          <h3 className="gold-text text-lg font-semibold mb-2 uppercase tracking-wider text-center">Current Deals</h3>
-          <h2 className="text-4xl font-bold text-gray-900 mb-12 text-center">Check Out Our Deals</h2>
-          
-          <div className="bg-white shadow-xl overflow-hidden">
-            <div className="grid md:grid-cols-2">
-              <div className="relative h-80 md:h-auto bg-gray-200">
-                <img src={deals[currentDeal].image} alt={deals[currentDeal].name} className="w-full h-full object-cover" />
-                <button onClick={() => setCurrentDeal(prev => prev === 0 ? deals.length - 1 : prev - 1)} className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-gold rounded-full flex items-center justify-center text-white hover:bg-gold-dark transition">
-                  <ChevronLeft className="w-6 h-6" />
-                </button>
-                <button onClick={() => setCurrentDeal(prev => prev === deals.length - 1 ? 0 : prev + 1)} className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-gold rounded-full flex items-center justify-center text-white hover:bg-gold-dark transition">
-                  <ChevronRight className="w-6 h-6" />
-                </button>
-              </div>
-              
-              <div className="p-8 md:p-12">
-                <div className={`text-sm font-bold uppercase tracking-wider mb-2 ${deals[currentDeal].status === 'Investment Open' ? 'text-green-600' : 'gold-text'}`}>
-                  {deals[currentDeal].status}
-                </div>
-                <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-8">{deals[currentDeal].name}</h3>
-                
-                <div className="space-y-4">
-                  {deals[currentDeal].details.map((item, index) => (
-                    <div key={index} className="flex justify-between items-center py-2 border-b border-gray-200">
-                      <span className="text-gray-600 text-sm">{item.label}</span>
-                      <span className="font-semibold gold-text text-sm">{item.value}</span>
-                    </div>
-                  ))}
+      {deals.length > 0 && (
+        <section className="bg-gray-100 py-20">
+          <div className="max-w-6xl mx-auto px-6">
+            <h3 className="gold-text text-lg font-semibold mb-2 uppercase tracking-wider text-center">Current Deals</h3>
+            <h2 className="text-4xl font-bold text-gray-900 mb-12 text-center">Check Out Our Deals</h2>
+            
+            <div className="bg-white shadow-xl overflow-hidden">
+              <div className="grid md:grid-cols-2">
+                <div className="relative h-80 md:h-auto bg-gray-200">
+                  <img src={deals[currentDeal]?.imageUrl || deals[currentDeal]?.image} alt={deals[currentDeal]?.name} className="w-full h-full object-cover" />
+                  {deals.length > 1 && (
+                    <>
+                      <button onClick={() => setCurrentDeal(prev => prev === 0 ? deals.length - 1 : prev - 1)} className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-gold rounded-full flex items-center justify-center text-white hover:bg-gold-dark transition">
+                        <ChevronLeft className="w-6 h-6" />
+                      </button>
+                      <button onClick={() => setCurrentDeal(prev => prev === deals.length - 1 ? 0 : prev + 1)} className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-gold rounded-full flex items-center justify-center text-white hover:bg-gold-dark transition">
+                        <ChevronRight className="w-6 h-6" />
+                      </button>
+                    </>
+                  )}
                 </div>
                 
-                <Link href="/invest" className="mt-8 btn-gold px-8 py-3 uppercase text-sm font-bold inline-block">
-                  View Details
-                </Link>
+                <div className="p-8 md:p-12">
+                  <div className={`text-sm font-bold uppercase tracking-wider mb-2 ${deals[currentDeal]?.status === 'Investment Open' ? 'text-green-600' : 'gold-text'}`}>
+                    {deals[currentDeal]?.status}
+                  </div>
+                  <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-8">{deals[currentDeal]?.name}</h3>
+                  
+                  <div className="space-y-4">
+                    {deals[currentDeal]?.details?.map((item, index) => (
+                      <div key={index} className="flex justify-between items-center py-2 border-b border-gray-200">
+                        <span className="text-gray-600 text-sm">{item.label}</span>
+                        <span className="font-semibold gold-text text-sm">{item.value}</span>
+                      </div>
+                    ))}
+                  </div>
+                  
+                  <Link href="/invest" className="mt-8 btn-gold px-8 py-3 uppercase text-sm font-bold inline-block">
+                    View Details
+                  </Link>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* The Luxos Difference - Editorial Style */}
       <section className="bg-[#0a0a0a] relative overflow-hidden">
