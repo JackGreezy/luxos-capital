@@ -24,8 +24,6 @@ export const teamMembers = [
 export const stats = [
   { value: '$200K+', label: 'Initial\nInvestment' },
   { value: '30–200', label: 'Units Per\nProperty' },
-  { value: '12-15%', label: 'Target\nIRR' },
-  { value: '8-12%', label: 'Yield to\nCost' },
 ];
 
 // Process Steps
@@ -64,7 +62,7 @@ export const faqItems = [
   { question: 'Who can invest?', answer: 'Typically qualified/accredited investors depending on the structure. Accreditation requirements are set by the SEC and vary based on income, net worth, and professional experience.' },
   { question: 'How are returns generated?', answer: 'Returns are generated through rent increases, ongoing rental income (cash flow), equity growth through property appreciation, tax-advantaged refinance events, and eventual property sale.' },
   { question: 'How long is capital invested?', answer: 'Strategic 30-36 month holding period, or consider long-term hold for positive cash flow. Hold periods vary by project and market conditions.' },
-  { question: 'What are the target returns?', answer: 'Luxos Capital is targeting an IRR of 12-15% and yield to cost of 8-12%, with cash-on-cash return of 5-8%. Individual project returns may vary.' },
+  { question: 'What are the target returns?', answer: 'Luxos Capital targets cash-on-cash return of 5-8%. Individual project returns may vary.' },
   { question: 'Will I receive updates?', answer: 'Yes, ongoing investor communication and reporting through our investor online portal and mobile app.' },
   { question: 'What documents will I receive?', answer: 'Each offering is supported through formal investment documents including: Private Placement Memorandum (PPM), Subscription Agreement, and Operating Agreement.' },
   { question: 'What is the minimum investment?', answer: 'Minimum investment amounts vary by deal and are specified in each offering\'s documentation. Contact us to learn about current opportunities.' },

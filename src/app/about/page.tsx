@@ -173,7 +173,7 @@ export default function AboutPage() {
 
       {/* Numbers Strip */}
       <section className="bg-[#c9a961]">
-        <div className="max-w-6xl mx-auto grid grid-cols-2 lg:grid-cols-4">
+        <div className="max-w-6xl mx-auto grid grid-cols-2 lg:grid-cols-3">
           <div className="px-8 py-12 lg:py-16 text-center border-r border-white/20">
             <div className="text-4xl lg:text-5xl font-light text-white mb-2">60+</div>
             <div className="text-white/80 text-xs uppercase tracking-[0.2em]">Years Experience</div>
@@ -181,10 +181,6 @@ export default function AboutPage() {
           <div className="px-8 py-12 lg:py-16 text-center lg:border-r border-white/20">
             <div className="text-4xl lg:text-5xl font-light text-white mb-2">1000s</div>
             <div className="text-white/80 text-xs uppercase tracking-[0.2em]">Units Managed</div>
-          </div>
-          <div className="px-8 py-12 lg:py-16 text-center border-r border-white/20 border-t lg:border-t-0">
-            <div className="text-4xl lg:text-5xl font-light text-white mb-2">12-15%</div>
-            <div className="text-white/80 text-xs uppercase tracking-[0.2em]">Target IRR</div>
           </div>
           <div className="px-8 py-12 lg:py-16 text-center border-t lg:border-t-0">
             <div className="text-4xl lg:text-5xl font-light text-white mb-2">5</div>

@@ -145,7 +145,7 @@ export default function HomePage() {
         {/* Stats Overlay Bar */}
         <div className="absolute bottom-0 left-0 right-0 bg-black/40 backdrop-blur-md border-t border-white/10">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 py-4 sm:py-6">
-            <div className="grid grid-cols-2 sm:grid-cols-4 divide-x divide-white/20">
+            <div className="grid grid-cols-2 divide-x divide-white/20">
               {stats.map((stat, index) => (
                 <div key={index} className="text-center px-1 sm:px-4">
                   <div className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-light text-[#c9a961] mb-1 whitespace-nowrap">{stat.value}</div>
@@ -371,14 +371,6 @@ export default function HomePage() {
                 <div className="flex-shrink-0">
                   <div className="text-3xl sm:text-4xl lg:text-5xl font-light text-[#c9a961]">60+</div>
                   <div className="text-[10px] sm:text-xs uppercase tracking-[0.15em] sm:tracking-[0.2em] text-white/50 mt-2 leading-tight">Years Combined<br/>Experience</div>
-                </div>
-                <div className="flex-shrink-0">
-                  <div className="text-3xl sm:text-4xl lg:text-5xl font-light text-[#c9a961]">12-15%</div>
-                  <div className="text-[10px] sm:text-xs uppercase tracking-[0.15em] sm:tracking-[0.2em] text-white/50 mt-2 leading-tight">Target<br/>IRR</div>
-                </div>
-                <div className="flex-shrink-0">
-                  <div className="text-3xl sm:text-4xl lg:text-5xl font-light text-[#c9a961]">8-12%</div>
-                  <div className="text-[10px] sm:text-xs uppercase tracking-[0.15em] sm:tracking-[0.2em] text-white/50 mt-2 leading-tight">Yield to<br/>Cost</div>
                 </div>
                 <div className="flex-shrink-0">
                   <div className="text-3xl sm:text-4xl lg:text-5xl font-light text-[#c9a961] whitespace-nowrap">1000s</div>

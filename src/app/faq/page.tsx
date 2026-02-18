@@ -19,7 +19,6 @@ const allFaqs = [...faqItems, ...additionalFaqs];
 const quickAnswers = [
   { question: 'Minimum Investment', answer: '$200K initial investment' },
   { question: 'Hold Period', answer: '3-5 years typically' },
-  { question: 'Target IRR', answer: '12-15% annually' },
   { question: 'Distributions', answer: 'Quarterly when available' },
   { question: 'Investor Type', answer: 'Accredited investors' },
   { question: 'Tax Documents', answer: 'K-1 provided annually' },
@@ -58,12 +57,12 @@ export default function FAQPage() {
       {/* Quick Reference Strip */}
       <section className="bg-[#c9a961]">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
             {quickAnswers.map((item, index) => (
               <div 
                 key={index} 
                 className={`px-6 py-8 text-center ${
-                  index < 5 ? 'border-r border-white/20' : ''
+                  index < 4 ? 'border-r border-white/20' : ''
                 } ${index >= 2 && index < 4 ? 'border-t md:border-t-0' : ''} ${index >= 4 ? 'border-t lg:border-t-0' : ''}`}
               >
                 <div className="text-white/70 text-xs uppercase tracking-[0.15em] mb-2">{item.question}</div>
@@ -159,7 +158,7 @@ export default function FAQPage() {
                 <div className="border-l-2 border-[#c9a961] pl-6">
                   <h4 className="text-white font-medium mb-2">Risk & Returns</h4>
                   <p className="text-white/50 text-sm leading-relaxed">
-                    All investments carry risk. We target 12-15% IRR and 8-12% yield to cost through conservative underwriting and value-add strategies.
+                    All investments carry risk. We focus on conservative underwriting and value-add strategies to maximize returns.
                   </p>
                 </div>
               </div>

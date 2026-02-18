@@ -93,14 +93,13 @@ export default function WhyMultifamilyPage() {
 
       {/* Stats Strip */}
       <section className="bg-[#c9a961]">
-        <div className="max-w-6xl mx-auto grid grid-cols-2 lg:grid-cols-4">
+        <div className="max-w-6xl mx-auto grid grid-cols-2 lg:grid-cols-3">
           {[
-            { value: '12-15%', label: 'Target Yield Cost' },
             { value: '7-10+', label: 'Hold Period' },
             { value: '$200K', label: 'Min Investment' },
             { value: '2x', label: 'Equity Multiple' },
           ].map((stat, index) => (
-            <div key={index} className={`px-8 py-12 lg:py-16 text-center ${index < 3 ? 'border-r border-white/20' : ''} ${index === 2 ? 'border-t lg:border-t-0' : ''} ${index === 3 ? 'border-t lg:border-t-0' : ''}`}>
+            <div key={index} className={`px-8 py-12 lg:py-16 text-center ${index < 2 ? 'border-r border-white/20' : ''} ${index === 2 ? 'border-t lg:border-t-0' : ''}`}>
               <div className="text-4xl lg:text-5xl font-light text-white mb-2">{stat.value}</div>
               <div className="text-white/80 text-xs uppercase tracking-[0.2em]">{stat.label}</div>
             </div>

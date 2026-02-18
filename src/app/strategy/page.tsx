@@ -22,7 +22,7 @@ const businessModel = [
   { 
     number: '04', 
     title: 'Exit', 
-    description: 'Recapitalize and fully stabilize our properties, targeting an 8–12% yield on cost and a 2.0–2.5x+ equity multiple, with the flexibility to exit at our targeted IRR when conditions are optimal.',
+    description: 'Recapitalize and fully stabilize our properties, targeting a 2.0–2.5x+ equity multiple, with the flexibility to exit when conditions are optimal.',
   },
 ];
 
@@ -103,16 +103,15 @@ export default function StrategyPage() {
 
       {/* Stats Strip */}
       <section className="bg-[#c9a961]">
-        <div className="max-w-6xl mx-auto grid grid-cols-2 lg:grid-cols-4">
+        <div className="max-w-6xl mx-auto grid grid-cols-2 lg:grid-cols-3">
           {[
-            { value: '12-15%', label: 'Target IRR' },
             { value: '5-8%', label: 'Cash-on-Cash' },
             { value: '20-25%', label: 'Rent Increase' },
             { value: '30-36mo', label: 'Hold Period' },
           ].map((stat, index) => (
             <div 
               key={index} 
-              className={`px-8 py-12 lg:py-16 text-center ${index < 3 ? 'border-r border-white/20' : ''} ${index >= 2 ? 'border-t lg:border-t-0' : ''}`}
+              className={`px-8 py-12 lg:py-16 text-center ${index < 2 ? 'border-r border-white/20' : ''} ${index >= 2 ? 'border-t lg:border-t-0' : ''}`}
             >
               <div className="text-4xl lg:text-5xl font-light text-white mb-2">{stat.value}</div>
               <div className="text-white/80 text-xs uppercase tracking-[0.2em]">{stat.label}</div>
